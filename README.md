@@ -20,3 +20,14 @@ A missing diary taking website.
 `mongod --dbpath db`
 
 `supervisor --harmony index`
+
+# TODO
+
+- Sign up
+  - email 
+  - activation flow
+
+- User
+  - avatar upload
+
+... 

@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
   res.render('signin');
 });
 
-// @GET /signup
+// @POST /signin
 router.post('/', function(req, res, next) {
   res.send('POST /signin');
 });
