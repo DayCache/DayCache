@@ -8,7 +8,15 @@ var DiaryModel = require('../models/diaries');
 // GET /diary
 router.get('/', hasSignedIn, function(req, res, next) {
   // 返回这个人的所有 diary
-  res.send('@GET diariy');
+  var author = req.query.author;
+
+  DiaryModel.getDiaries(author)
+      .then(function (diaries) {
+        res.render('diaries', {
+          diaries: diaries
+        });
+      })
+      .catch(next);
 });
 
 // @GET /diary/new
@@ -17,7 +25,7 @@ router.get('/new', hasSignedIn, function(req, res, next) {
 });
 
 // @POST /diary
-router.post('/diary', hasSignedIn, function(req, res, next) {
+router.post('/', hasSignedIn, function(req, res, next) {
   var author = req.session.user._id;
   var content = req.fields.content;
 
@@ -37,7 +45,6 @@ router.post('/diary', hasSignedIn, function(req, res, next) {
 
   DiaryModel.create(diary)
     .then(function (result) {
-      // 此 post 是插入 mongodb 后的值，包含 _id
       diary = result.ops[0];
       req.flash('success', '保存好啦');
       res.redirect(`/diary/${diary._id}`);
@@ -46,9 +53,22 @@ router.post('/diary', hasSignedIn, function(req, res, next) {
 });
 
 // @GET /diary/:id
-router.get('/diary/:id', hasSignedIn, function(req, res, next) {
+router.get('/:diaryID', hasSignedIn, function(req, res, next) {
   // TODO: 隐私保护
-  res.render('diary');
+  var diaryID = req.params.diaryID;
+
+  DiaryModel.getDiaryByID(diaryID)
+    .then(function (result) {
+      var diary = result[0];
+      if (!diary) {
+        throw new Error('404');
+      }
+
+      res.render('diary', {
+        diary: diary
+      });
+    })
+    .catch(next);
 });
 
 module.exports = router;

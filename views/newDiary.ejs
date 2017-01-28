@@ -6,12 +6,12 @@
     <h2 class="ui center aligned header">
       New diary!
     </h2>
-    <form class="ui form segment" method="post" enctype="multipart/form-data">
+    <form class="ui form segment" method="post" enctype="multipart/form-data" action="/diary">
 
 
       <div class="field required">
         <div class="ui top attached label yellow"><%- currentDateString() %></div>
-        <textarea name="content" rows="20"></textarea>
+        <textarea name="content" rows="21"></textarea>
         <div class="ui pointing label">
           支持 Markdown 语法哦
         </div>

@@ -32,5 +32,6 @@ A missing diary taking website.
   
 - Diary
   - tags
+  - preview content while editing
 
 ... 
