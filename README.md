@@ -12,3 +12,11 @@
 ```
 
 A missing diary taking website.
+
+# Get started
+
+`npm install`
+
+`mongod --dbpath db`
+
+`supervisor --harmony index`

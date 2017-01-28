@@ -1,0 +1,24 @@
+<%- include('header') %>
+<div class="ui grid">
+  <div class="four wide column"></div>
+  <div class="eight wide column">
+    <h2 class="ui center aligned header">
+      登录
+    </h2>
+    <form class="ui form segment" method="post" enctype="multipart/form-data">
+
+      <div class="field required">
+        <label>用户名</label>
+        <input placeholder="username" type="text" name="username">
+      </div>
+
+      <div class="field required">
+        <label>密码</label>
+        <input placeholder="password" type="password" name="password">
+      </div>
+
+      <input type="submit" class="ui button fluid" value="登录">
+    </form>
+  </div>
+</div>
+<%- include('footer') %>

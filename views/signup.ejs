@@ -1,0 +1,49 @@
+<%- include('header') %>
+<div class="ui grid">
+  <div class="four wide column"></div>
+  <div class="eight wide column">
+    <h2 class="ui center aligned header">
+      注册
+    </h2>
+    <form class="ui form segment" method="post" enctype="multipart/form-data">
+
+      <div class="field required">
+        <label>用户名</label>
+        <input placeholder="username" type="text" name="username">
+      </div>
+
+      <div class="field required">
+        <label>密码</label>
+        <input placeholder="password" type="password" name="password">
+      </div>
+
+      <div class="field required">
+        <label>确认密码</label>
+        <input placeholder="confirm password" type="password" name="confirmPassword">
+      </div>
+
+      <div class="field required">
+        <label>昵称</label>
+        <input placeholder="screen name" type="text" name="screenName"/>
+      </div>
+
+      <div class="field required">
+        <label>性别</label>
+        <div class="ui selection dropdown">
+          <div class="default text">选择性别</div>
+          <i class="dropdown icon"></i>
+          <input type="hidden" name="gender">
+          <div class="menu">
+            <div class="item" data-value="male">男</div>
+            <div class="item" data-value="female">女</div>
+          </div>
+        </div>
+      </div>
+
+      <input type="submit" class="ui button fluid" value="注册">
+    </form>
+  </div>
+</div>
+
+
+<%- include('footer') %>
