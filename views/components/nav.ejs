@@ -8,9 +8,13 @@
     </div>
     <div class="four wide right aligned column">
       <div class="ui breadcrumb">
-        <a class="section signin" href="/signin">Sign in</a>
-        <div class="divider"> / </div>
-        <a class="section" href="/signup">Sign up</a>
+        <% if (user) { %>
+          <a class="section" href="/signout">Sign out</a>
+        <% } else { %>
+          <a class="section" href="/signin">Sign in</a>
+          <div class="divider"> / </div>
+          <a class="section" href="/signup">Sign up</a>
+        <% } %>
       </div>
     </div>
   </div>
