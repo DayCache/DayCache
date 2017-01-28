@@ -1,3 +1,4 @@
+<% include('./helpers/helpers') %>
 <%- include('header') %>
 <div class="ui grid">
   <div class="four wide column"></div>
@@ -7,8 +8,13 @@
     </h2>
     <form class="ui form segment" method="post" enctype="multipart/form-data">
 
+
       <div class="field required">
-        <textarea name="content" rows="15"></textarea>
+        <div class="ui top attached label yellow"><%- currentDateString() %></div>
+        <textarea name="content" rows="20"></textarea>
+        <div class="ui pointing label">
+          支持 Markdown 语法哦
+        </div>
       </div>
 
       <input type="submit" class="ui yellow button fluid" value="写完啦">

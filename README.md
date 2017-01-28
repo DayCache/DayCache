@@ -29,5 +29,8 @@ A missing diary taking website.
 
 - User
   - avatar upload
+  
+- Diary
+  - tags
 
 ... 
