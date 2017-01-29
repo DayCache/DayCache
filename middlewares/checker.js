@@ -1,7 +1,7 @@
 module.exports = {
   hasSignedIn: function hasSignedIn(req, res, next) {
     if (!req.session.user) {
-      req.flash('error', '未登录'); 
+      req.flash('error', '未登录');
       return res.redirect('/signin');
     }
     next();
