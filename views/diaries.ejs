@@ -1,7 +1,7 @@
 <%- include('header') %>
 
 <% diaries.forEach(function (diary) { %>
-  <%- include('components/diaryDetail', { diary: diary }) %>
+  <%- include('components/diaryPreview', { diary: diary }) %>
 <% }) %>
 
 <%- include('footer') %>

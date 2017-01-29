@@ -1,0 +1,11 @@
+<div class="post-content">
+  <div class="ui grid">
+
+    <div class="ui wide column">
+      <div class="ui segment">
+        <h3><a href="/diary/<%= diary._id %>"><%= diary.created_at %></a></h3>
+        <pre><%- diary.content.split('\n')[0] %></pre>
+      </div>
+    </div>
+  </div>
+</div>
