@@ -4,8 +4,10 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
 var config = require('config-lite');
+var bodyParser = require('body-parser');
 var routes = require('./routes');
 var pkg = require('./package');
+var passport = require('passport');
 
 var app = express();
 
@@ -16,6 +18,12 @@ app.set('view engine', 'ejs');
 
 // 设置静态文件目录
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+
+// API
+var apiV1 = require('./api/v1');
+apiV1(app);
+
 // session 中间件
 app.use(session({
   name: config.session.key,// 设置 cookie 中保存 session id 的字段名称
@@ -53,10 +61,6 @@ app.use(function (req, res, next) {
 
 // 路由
 routes(app);
-
-// API
-var apiV1 = require('./api/v1');
-apiV1(app);
 
 // 监听端口，启动程序
 app.listen(config.port, function () {

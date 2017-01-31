@@ -1,17 +1,18 @@
-// path: `/api/v1/signin`
-var express = require('express');
-var router = express.Router();
+const express = require('express');
 const passport = require('passport');
-const Strategy = require('passport-local').Strategy;
+const Strategy = require('passport-local');
 var jwt = require('jsonwebtoken');
 var config = require('config-lite');
 
-
-router.post('/', passport.initialize(), passport.authenticate(
-    'local', {
-      session: false,
-      scope: []
-    }), serialize, generateToken, respond);
+module.exports = {
+  basicAuth: function basicAuth(app) {
+    app.post('/api/v1/signin', passport.initialize(), passport.authenticate(
+      'local', {
+        session: false,
+        scope: []
+      }), serialize, generateToken, respond);
+  }
+};
 
 passport.use(new Strategy(
   function(username, password, done) {
@@ -57,10 +58,9 @@ function generateToken(req, res, next) {
 }
 
 function respond(req, res) {
-  return res.json({
+  res.status(200).json({
     user: req.user,
     token: req.token
   });
 }
 
-module.exports = router;

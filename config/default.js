@@ -13,5 +13,9 @@ module.exports = {
         user: 'classTC@163.com',
         pass: 'daycache123'
     }
+  },
+  auth: {
+    serverSecret: 'serverSerect',
+    expireTime: 31536000
   }
 };
