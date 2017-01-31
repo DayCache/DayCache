@@ -5,6 +5,7 @@ var MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
 var config = require('config-lite');
 var routes = require('./routes');
+var apiRoutes = require('./api');
 var pkg = require('./package');
 
 var app = express();
@@ -54,7 +55,45 @@ app.use(function (req, res, next) {
 // 路由
 routes(app);
 
+// API
+apiRoutes(app);
+
 // 监听端口，启动程序
 app.listen(config.port, function () {
   console.log(`${pkg.name} listening on port ${config.port}`);
+});
+
+// 捕获 404 并定向到错误处理
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// 开发环境下的错误处理
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+
+    res.status(err.status || 500);
+    // 如果 path 包含 'api' 会返回 json
+    if (req.path.includes('api')) {
+      return res.json( { 'error': err.message });
+    }
+
+    res.render('error', {
+      message: err.message,
+      error: err,
+    });
+  });
+}
+
+// 生产环境下的错误处理
+app.use(function(err, req, res, next) {
+  // 设置响应状态
+  res.status(err.status || 500);
+  // 渲染错误处理页
+  res.render('error', {
+    message: err.message,
+    error: {},
+  });
 });
