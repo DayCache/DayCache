@@ -5,7 +5,6 @@ var MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
 var config = require('config-lite');
 var routes = require('./routes');
-var apiRoutes = require('./api');
 var pkg = require('./package');
 
 var app = express();
@@ -56,7 +55,8 @@ app.use(function (req, res, next) {
 routes(app);
 
 // API
-apiRoutes(app);
+var apiV1 = require('./api/v1');
+apiV1(app);
 
 // 监听端口，启动程序
 app.listen(config.port, function () {
@@ -77,7 +77,13 @@ if (app.get('env') === 'development') {
     res.status(err.status || 500);
     // 如果 path 包含 'api' 会返回 json
     if (req.path.includes('api')) {
-      return res.json( { 'error': err.message });
+      return res.json( {
+        status: {
+          code: err.status,
+          message: err.message
+        },
+        data: { }
+      });
     }
 
     res.render('error', {
@@ -91,6 +97,17 @@ if (app.get('env') === 'development') {
 app.use(function(err, req, res, next) {
   // 设置响应状态
   res.status(err.status || 500);
+
+  if (req.path.includes('api')) {
+    return res.json( {
+      status: {
+        code: err.status,
+        message: err.message
+      },
+      data: { }
+    });
+  }
+
   // 渲染错误处理页
   res.render('error', {
     message: err.message,

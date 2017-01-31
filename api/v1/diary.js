@@ -1,25 +1,29 @@
-// route path: `/api/diary`
+// path: `/api/v1/diary`
 var express = require('express');
 var router = express.Router();
 
 router.route('/')
   .get(function(req, res) {
-    res.json({
-      message: 'get diaries'
+    return res.json({
+      status: {
+        code: 200,
+        message: 'get diary'
+      },
+      data: {}
     });
   })
   .post(function(req, res) {
-    res.json({
+    return res.json({
       message: 'new diary'
     });
   })
 
 router.route('/:id')
   .get(function(req, res) {
-    res.json({
+    return res.json({
       id: req.params.id,
       message: 'get diary'
     });
-  });
+  })
 
 module.exports = router;
