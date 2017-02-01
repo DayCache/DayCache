@@ -20,9 +20,20 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
-// API
-var apiV1 = require('./api/v1');
-apiV1(app);
+/*
+  // API
+  如果需要新增加一个 API 的版本
+  1. 把 ./api/v1 目录复制一份，改名为 v2
+  2. 在下面的 API_VERSIONS 字典中加入一对 kv，如 `'Version 2': '/v2'`
+  其它的事情就不需要担心啦
+ */
+var API_VERSIONS = {
+  'Version 1': '/v1'
+}
+for (var v in API_VERSIONS) {
+  var api = require('./api' + API_VERSIONS[v]);
+  api(app);
+}
 
 // session 中间件
 app.use(session({
