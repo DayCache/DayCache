@@ -13,32 +13,18 @@
 
 A missing diary taking website.
 
-# Get started
+# Requirements
+
+node v6.9.1 or above, npm, mongod and supervisor installed.
+
+# Getting started
 
 `npm install`
 
-`mongod --dbpath db`
+`mkdir db && mongod --dbpath db`
 
 `supervisor --harmony index`
 
-# TODO
-
-- Sign up
-  - email 
-  - activation flow
-
-- User
-  - avatar upload
-  
-- Diary
-  - tags
-  - preview content while editing
-  
-- API
-  - versioning
-
-... 
-  
 # Documents
 
 See documents directory.
