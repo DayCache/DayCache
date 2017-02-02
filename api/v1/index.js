@@ -11,7 +11,6 @@ module.exports = function (app) {
 
   for (let i in ROUTE_PATHS) {
     let path = ROUTE_PATHS[i];
-    console.log(path);
     app.use('/api/v1' + path, require('.' + path));
   }
 
