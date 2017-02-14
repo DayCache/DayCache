@@ -63,7 +63,6 @@ app.locals.website = {
 
 // 添加模板必需的三个变量
 app.use(function (req, res, next) {
-  console.log("模版 常用");
   res.locals.user = req.session.user;
   res.locals.success = req.flash('success').toString();
   res.locals.error = req.flash('error').toString();
@@ -76,7 +75,6 @@ routes(app);
 // 捕获 404 并定向到错误处理
 app.use(function(req, res, next) {
   return res.send('404');
-  console.log("error!!!!! 4004");
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
@@ -87,7 +85,6 @@ if (app.get('env') === 'development') {
     res.status(err.status || 500);
     // 如果 path 包含 'api' 会返回 json
     if (req.path.includes('api')) {
-      console.log('api-wrong');
       return res.json({
         status: {
           code: err.status,
