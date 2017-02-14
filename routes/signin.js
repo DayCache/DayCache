@@ -5,16 +5,18 @@ var router = express.Router();
 var UserModel = require('../models/users');
 var hasNotSignedIn = require('../middlewares/checker').hasNotSignedIn;
 
+var bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 // @GET /signin
 router.get('/', function(req, res, next) {
-  res.render('signin');
+  return res.render('signin');
 });
 
 // @POST /signin
-router.post('/', function(req, res, next) {
-  var name = req.fields.username;
-  var password = req.fields.password;
+router.post('/', urlencodedParser, function(req, res, next) {
+  var name = req.body.username;
+  var password = req.body.password;
 
   UserModel.getUserByName(name)
     .then(function (user) {
@@ -32,7 +34,7 @@ router.post('/', function(req, res, next) {
       delete user.password;
       req.session.user = user;
       // 跳转到主页
-      res.redirect('/');
+      return res.redirect('/');
     })
     .catch(next);
 });

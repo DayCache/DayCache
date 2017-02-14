@@ -6,18 +6,21 @@ var router = express.Router();
 var UserModel = require('../models/users');
 var hasNotSignedIn = require('../middlewares/checker').hasNotSignedIn;
 
+var bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
 // @GET /signup
 router.get('/', hasNotSignedIn, function(req, res, next) {
-  res.render('signup');
+  return res.render('signup');
 });
 
 // @POST /signup
-router.post('/', function(req, res, next) {
-  var name = req.fields.username;
-  var password = req.fields.password;
-  var repassword = req.fields.confirmPassword;
-  var gender = req.fields.gender;
-  var screenName = req.fields.screenName;
+router.post('/', urlencodedParser, function(req, res, next) {
+  var name = req.body.username;
+  var password = req.body.password;
+  var repassword = req.body.confirmPassword;
+  var gender = req.body.gender;
+  var screenName = req.body.screenName;
 
   try {
     if (!(name.length >= 5 && name.length <= 30)) {
@@ -62,7 +65,7 @@ router.post('/', function(req, res, next) {
              // 写入 flash
              req.flash('success', '注册成功');
              // 跳转到首页
-             res.redirect('/');
+             return res.redirect('/');
            })
            .catch(function (e) {
              // 用户名被占用则跳回注册页，而不是错误页
