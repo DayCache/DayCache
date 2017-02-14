@@ -8,7 +8,7 @@ router.get('/', hasSignedIn, function(req, res, next) {
   // 清空 session 中用户信息
   req.session.user = null;
   req.flash('success', '登出成功');
-  res.redirect('/');
+  return res.redirect('/');
 });
 
 module.exports = router;

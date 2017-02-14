@@ -12,7 +12,7 @@ router.get('/', hasSignedIn, function(req, res, next) {
 
   DiaryModel.getDiaries(author)
       .then(function (diaries) {
-        res.render('diaries', {
+        return res.render('diaries', {
           diaries: diaries
         });
       })
@@ -21,7 +21,7 @@ router.get('/', hasSignedIn, function(req, res, next) {
 
 // @GET /diary/new
 router.get('/new', hasSignedIn, function(req, res, next) {
-  res.render('newDiary');
+  return res.render('newDiary');
 });
 
 // @POST /diary
@@ -47,7 +47,7 @@ router.post('/', hasSignedIn, function(req, res, next) {
     .then(function (result) {
       diary = result.ops[0];
       req.flash('success', '保存好啦');
-      res.redirect(`/diary/${diary._id}`);
+      return res.redirect(`/diary/${diary._id}`);
     })
     .catch(next);
 });
@@ -64,7 +64,7 @@ router.get('/:diaryID', hasSignedIn, function(req, res, next) {
         throw new Error('404');
       }
 
-      res.render('diary', {
+      return res.render('diary', {
         diary: diary
       });
     })
